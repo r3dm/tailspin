@@ -41,29 +41,32 @@ CodeMirrorEditor = (function (require, module) {
     componentDidMount: function() {
       var isTextArea = this.props.forceTextArea || IS_MOBILE;
       if (!isTextArea) {
-        this.editor = CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), this.props);
-        this.editor.on('change', this.handleChange);
+        this._editor =
+          CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), this.props);
+        this._editor.on('change', this._handleChange);
       }
     },
 
     componentDidUpdate: function() {
-      if (this.editor) {
+      if (this._editor) {
         if (this.props.value != null) {
-          if (this.editor.getValue() !== this.props.value) {
-            this.editor.setValue(this.props.value);
+          if (this._editor.getValue() !== this.props.value) {
+            this._editor.setValue(this.props.value);
           }
         }
       }
     },
 
-    handleChange: function() {
-      if (this.editor) {
-        var value = this.editor.getValue();
+    _handleChange: function() {
+      if (this._editor) {
+        var value = this._editor.getValue();
+
         if (value !== this.props.value) {
           this.props.onChange && this.props.onChange({target: {value: value}});
-          if (this.editor.getValue() !== this.props.value) {
+
+          if (this._editor.getValue() !== this.props.value) {
             if (this.state.isControlled) {
-              this.editor.setValue(this.props.value);
+              this._editor.setValue(this.props.value);
             } else {
               this.props.value = value;
             }
@@ -83,7 +86,10 @@ CodeMirrorEditor = (function (require, module) {
         className: this.props.textAreaClassName || this.props.textAreaClass
       });
 
-      return React.createElement('div', {style: this.props.style, className: this.props.className}, editor);
+      return React.createElement('div', {
+        style: this.props.style,
+        className: this.props.className
+      }, editor);
     }
   });
 
