@@ -13,6 +13,7 @@ CodeMirrorEditor = (function (require, module) {
 
     propTypes: {
       className: React.PropTypes.string,
+      config: React.PropTypes.object,
       defaultValue: React.PropTypes.string,
       forceTextArea: React.PropTypes.bool,
       onChange: React.PropTypes.func,
@@ -31,12 +32,23 @@ CodeMirrorEditor = (function (require, module) {
 
     componentDidMount: function() {
       var isTextArea = this.props.forceTextArea || isMobile;
+      var config = this.props.config;
       if (isTextArea) {
         return;
       }
       this._editor =
         CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), this.props);
       this._editor.on('change', this._handleChange);
+      if (config) {
+        Object.keys(config).map(function(prop) {
+          var args = config[prop];
+          if (!Array.isArray(args)) {
+            args = [args];
+          }
+          args.unshift(prop);
+          this._editor.setOption.apply(this._editor, args);
+        }.bind(this));
+      }
     },
 
     componentDidUpdate: function() {
