@@ -45,6 +45,9 @@ CodeMirrorEditor = (function (require, module) {
           if (!Array.isArray(args)) {
             args = [args];
           }
+          if (prop.indexOf('set') !== -1) {
+            return this._editor[prop].apply(this._editor, args);
+          }
           args.unshift(prop);
           this._editor.setOption.apply(this._editor, args);
         }.bind(this));
