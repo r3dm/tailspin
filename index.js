@@ -32,12 +32,9 @@ var CodeMirrorEditor = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (this._editor) {
-      if (this.props.value != null) {
-        if (this._editor.getValue() !== this.props.value) {
-          this._editor.setValue(this.props.value);
-        }
-      }
+    var oldVal = this.props.value;
+    if (this._editor && oldVal != null && this._editor.getValue() !== oldVal) {
+      this._editor.setValue(this.props.value);
     }
   },
 
