@@ -9,31 +9,39 @@ if (!isMobile) {
 
 var CodeMirrorEditor = React.createClass({
 
-  getInitialState: function() {
-    return { isControlled: this.props.value != null };
-  },
-
   propTypes: {
     className: React.PropTypes.string,
-    config: React.PropTypes.object,
     defaultValue: React.PropTypes.string,
+    forceTextArea: React.PropTypes.bool,
     onChange: React.PropTypes.func,
+    readOnly: React.PropTypes.bool,
     style: React.PropTypes.object,
-    value: React.PropTypes.string,
+    textAreaStyle: React.PropTypes.object,
+    textAreaClass: React.PropTypes.string,
+    textAreaClassName: React.PropTypes.string,
+    value: React.PropTypes.string
   },
+
+  getInitialState: function() {
+    return { isControlled: typeof this.props.value !== 'undefined' };
+  },
+
 
   componentDidMount: function() {
     var isTextArea = this.props.forceTextArea || isMobile;
-    if (!isTextArea) {
-      this._editor =
-        CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), this.props);
-      this._editor.on('change', this._handleChange);
+    if (isTextArea) {
+      return;
     }
+    this._editor =
+      CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), this.props);
+    this._editor.on('change', this._handleChange);
   },
 
   componentDidUpdate: function() {
     var oldVal = this.props.value;
-    if (this._editor && oldVal != null && this._editor.getValue() !== oldVal) {
+    if (this._editor &&
+        typeof oldVal !== 'undefined' &&
+        this._editor.getValue() !== oldVal) {
       this._editor.setValue(this.props.value);
     }
   },
@@ -43,7 +51,9 @@ var CodeMirrorEditor = React.createClass({
       var value = this._editor.getValue();
 
       if (value !== this.props.value) {
-        this.props.onChange && this.props.onChange({target: {value: value}});
+        if (this.props.onChange) {
+          this.props.onChange({target: {value: value}});
+        }
 
         if (this._editor.getValue() !== this.props.value) {
           if (this.state.isControlled) {
@@ -81,4 +91,3 @@ module.exports = CodeMirrorEditor;
 
 // also used as an example:
 // https://github.com/facebook/react/blob/master/src/browser/ui/dom/components/ReactDOMInput.js
-
