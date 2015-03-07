@@ -4,9 +4,13 @@ CodeMirrorEditor = (function (require, module) {
   var React = require('react');
   var isMobile = require('./utils/isMobile')();
   var CodeMirror;
+  var jsLintAddon;
 
   if (!isMobile) {
     CodeMirror = require('codemirror');
+    require('./mode/javascript')(CodeMirror);
+    require('./addons/lint')(CodeMirror);
+    jsLintAddon = require('./addons/lint/javascript');
   }
 
   var CodeMirrorEditor = React.createClass({
@@ -16,6 +20,7 @@ CodeMirrorEditor = (function (require, module) {
       config: React.PropTypes.object,
       defaultValue: React.PropTypes.string,
       forceTextArea: React.PropTypes.bool,
+      linter: React.PropTypes.object,
       onChange: React.PropTypes.func,
       readOnly: React.PropTypes.bool,
       style: React.PropTypes.object,
@@ -29,13 +34,14 @@ CodeMirrorEditor = (function (require, module) {
       return { isControlled: typeof this.props.value !== 'undefined' };
     },
 
-
     componentDidMount: function() {
       var isTextArea = this.props.forceTextArea || isMobile;
       var config = this.props.config;
       if (isTextArea) {
         return;
       }
+
+      jsLintAddon(CodeMirror, this.props.linter);
       this._editor =
         CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), this.props);
       this._editor.on('change', this._handleChange);
