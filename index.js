@@ -8,8 +8,8 @@ if (!isMobile) {
   CodeMirror = require('codemirror');
   require('./mode/javascript')(CodeMirror);
   require('./addons/lint')(CodeMirror);
-  require('./addons/matchBrackets');
-  require('./addons/closeBrackets');
+  require('./addons/edit/matchBrackets')(CodeMirror);
+  require('./addons/edit/closeBrackets')(CodeMirror);
   jsLintAddon = require('./addons/lint/javascript');
 }
 
