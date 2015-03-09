@@ -23,7 +23,7 @@ module.exports = function(CodeMirror, JSHINT) {
   function validator(text, options) {
     if (!JSHINT) { return []; }
     JSHINT(text, options);
-    var errors = JSHINT.data().error;
+    var errors = JSHINT.data().errors;
     var result = [];
     if (errors) { parseErrors(errors, result); }
     return result;

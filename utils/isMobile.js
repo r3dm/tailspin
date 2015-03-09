@@ -1,4 +1,4 @@
-var isMobile = typeof navigator === 'undefined' || (
+var _isMobile = typeof navigator === 'undefined' || (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/webOS/i) ||
   navigator.userAgent.match(/iPhone/i) ||
@@ -9,5 +9,5 @@ var isMobile = typeof navigator === 'undefined' || (
 );
 
 module.exports = function isMobile() {
-  return isMobile;
-}
+  return _isMobile;
+};

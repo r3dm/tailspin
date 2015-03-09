@@ -96,7 +96,7 @@ module.exports = function(CodeMirror) {
       inner.className = 'CodeMirror-lint-marker-multiple';
     }
 
-    if (tooltips) {
+    if (tooltips !== false) {
       CodeMirror.on(inner, 'mouseover', function(e) {
         showTooltipFor(e, labels, inner);
       });
@@ -131,7 +131,8 @@ module.exports = function(CodeMirror) {
   }
 
   function startLinting(cm) {
-    var state = cm.state.lint, options = state.options;
+    var state = cm.state.lint;
+    var options = state.options;
     // Support deprecated passing of `options` property in options
     var passOptions = options.options || options;
     if (options.async || options.getAnnotations.async) {
@@ -238,13 +239,16 @@ module.exports = function(CodeMirror) {
           hasLintGutter = true;
         }
       }
-      cm.state.lint = new LintState(cm, parseOptions(cm, val), hasLintGutter);
+
+      state = cm.state.lint =
+        new LintState(cm, parseOptions(cm, val), hasLintGutter);
+
       cm.on('change', onChange);
-      if (cm.state.options.tooltips) {
+      if (state.options.tooltips !== false) {
         CodeMirror.on(
           cm.getWrapperElement(),
           'mouseover',
-          cm.state.onMouseOver
+          state.onMouseOver
         );
       }
       startLinting(cm);
