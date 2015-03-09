@@ -18,7 +18,7 @@ var CodeMirrorEditor = React.createClass({
     config: React.PropTypes.object,
     defaultValue: React.PropTypes.string,
     forceTextArea: React.PropTypes.bool,
-    linter: React.PropTypes.object,
+    linter: React.PropTypes.func,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
     style: React.PropTypes.object,
@@ -106,9 +106,3 @@ var CodeMirrorEditor = React.createClass({
 });
 
 module.exports = CodeMirrorEditor;
-
-// adapted from:
-// https://github.com/facebook/react/blob/master/docs/_js/live_editor.js#L16
-
-// also used as an example:
-// https://github.com/facebook/react/blob/master/src/browser/ui/dom/components/ReactDOMInput.js
