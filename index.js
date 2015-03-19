@@ -60,15 +60,6 @@ var CodeMirrorEditor = React.createClass({
     }
   },
 
-  componentDidUpdate: function() {
-    var oldVal = this.props.value;
-    if (this._editor &&
-        typeof oldVal !== 'undefined' &&
-        this._editor.getValue() !== oldVal) {
-      this._editor.setValue(this.props.value);
-    }
-  },
-
   _handleChange: function() {
     if (this._editor) {
       var value = this._editor.getValue();
