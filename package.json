@@ -1,10 +1,32 @@
 {
-  "name": "react-code-mirror",
-  "version": "3.0.3",
-  "description": "CodeMirror component for Facebook React",
+  "name": "tailspin",
+  "version": "1.0.0",
+  "description": "Tailspin.js, Code Mirror for flying bears who use React for their view layer",
   "keywords": [
+    "tailspin",
     "react",
-    "react-component"
+    "reactjs",
+    "codemirror",
+    "editor",
+    "code",
+    "mirror",
+    "awesome"
+  ],
+  "author": {
+    "name": "Berkeley Martinez",
+    "email": "berkeley@r3dm.com",
+    "url": "http://r3dm.com"
+  },
+  "contributors": [
+    {
+      "name": "ForbesLindesay",
+      "url": "https://github.com/ForbesLindesay"
+    },
+    {
+      "Name": "Berkeley Martinez",
+      "email": "berkeley@r3dm.com",
+      "url": "http://r3dm.com"
+    }
   ],
   "peerDependencies": {
     "codemirror": "^4.6.0",
@@ -24,6 +46,5 @@
     "type": "git",
     "url": "https://github.com/ForbesLindesay/react-code-mirror.git"
   },
-  "author": "ForbesLindesay",
   "license": "MIT"
 }

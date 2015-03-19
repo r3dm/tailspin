@@ -1,11 +1,13 @@
-# react-code-mirror
+# TailSpin.js
 
-CodeMirror component for Facebook React
+CodeMirror for flying bears who use React for their view layer,
 
 ## Installation
 
-    npm install tailspin
+```
+npm install tailspin
+```
 
 ## License
 
-  MIT
+MIT
