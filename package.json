@@ -2,6 +2,7 @@
   "name": "tailspin",
   "version": "1.0.0",
   "description": "Tailspin.js, Code Mirror for flying bears who use React for their view layer",
+  "scripts": { },
   "keywords": [
     "tailspin",
     "react",
@@ -38,9 +39,6 @@
     "express": "^4.9.5",
     "react": "^0.12.0",
     "umd": "^2.1.0"
-  },
-  "scripts": {
-    "prepublish": "node build"
   },
   "repository": {
     "type": "git",
