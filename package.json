@@ -1,6 +1,6 @@
 {
   "name": "tailspin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tailspin.js, Code Mirror for flying bears who use React for their view layer",
   "repository": {
     "type": "git",
