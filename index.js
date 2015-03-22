@@ -63,21 +63,32 @@ var CodeMirrorEditor = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(newProps) {
+    // With read only option we want output to be updated
+    // when ever new props detect a change in value.
+    if (
+      this.props.readOnly &&
+      this._editor &&
+      this._editor.getValue() !== newProps.value
+    ) {
+      this._editor.setValue(newProps.value);
+    }
+  },
+
   _handleChange: function() {
-    if (this._editor) {
-      var value = this._editor.getValue();
+    if (!this._editor) {
+      return;
+    }
+
+    var value = this._editor.getValue();
+    if (value !== this.props.value) {
+      if (this.props.onChange) {
+        this.props.onChange({target: {value: value}});
+      }
 
       if (value !== this.props.value) {
-        if (this.props.onChange) {
-          this.props.onChange({target: {value: value}});
-        }
-
-        if (this._editor.getValue() !== this.props.value) {
-          if (this.state.isControlled) {
-            this._editor.setValue(this.props.value);
-          } else {
-            this.props.value = value;
-          }
+        if (this.state.isControlled) {
+          this._editor.setValue(this.props.value);
         }
       }
     }
