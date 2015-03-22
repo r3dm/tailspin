@@ -22,7 +22,10 @@ var CodeMirrorEditor = React.createClass({
     forceTextArea: React.PropTypes.bool,
     linter: React.PropTypes.func,
     onChange: React.PropTypes.func,
-    readOnly: React.PropTypes.bool,
+    readOnly: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.string
+    ]),
     style: React.PropTypes.object,
     textAreaStyle: React.PropTypes.object,
     textAreaClass: React.PropTypes.string,
